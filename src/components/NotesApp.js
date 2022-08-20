@@ -21,14 +21,17 @@ export default class NotesApp extends Component {
   }
 
   onDeleteHandler(id) {
-    const notes = this.state.notes.filter((note) => note.id !== id);
-    this.setState({
-      notes,
+    const notes = this.state.searchNotes.filter((note) => note.id !== id);
+    this.setState(() => {
+      return {
+        notes: notes,
+        searchNotes: notes,
+      };
     });
   }
 
   onAddToArchiveHandler(id) {
-    const filteredNotes = this.state.notes.map((note) => {
+    const filteredNotes = this.state.searchNotes.map((note) => {
       if (note.id === id) {
         note.archived ? (note.archived = false) : (note.archived = true);
       }
@@ -36,7 +39,8 @@ export default class NotesApp extends Component {
     });
 
     this.setState({
-      filteredNotes,
+      notes: filteredNotes,
+      searchNotes: filteredNotes,
     });
   }
 
