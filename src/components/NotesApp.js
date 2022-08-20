@@ -21,12 +21,10 @@ export default class NotesApp extends Component {
   }
 
   onDeleteHandler(id) {
-    const notes = this.state.notes.filter((note) => note.id !== id);
-    const searchNotes = this.state.searchNotes.filter((note) => note.id !== id);
-    this.setState(() => {
+    this.setState((prevState) => {
       return {
-        notes,
-        searchNotes,
+        notes: prevState.notes.filter((note) => note.id !== id),
+        searchNotes: prevState.searchNotes.filter((note) => note.id !== id),
       };
     });
   }
