@@ -6,12 +6,9 @@ const Notes = ({
   onDelete,
   onSwitchToActiveNote,
   onSwitchToArchive,
+  searchQuery,
   onSearchEventHandler,
 }) => {
-  const onSearchHandler = (e) => {
-    onSearchEventHandler(e.target.value);
-  };
-
   return (
     <>
       <div className=" w-full">
@@ -23,7 +20,8 @@ const Notes = ({
             type="search"
             className="w-full rounded  border border-primary bg-transparent px-2 py-2 text-sm placeholder:text-sm placeholder:font-bold focus:outline-none md:w-4/12 lg:w-3/12 "
             placeholder="Search Note..."
-            onChange={onSearchHandler}
+            value={searchQuery}
+            onChange={(e) => onSearchEventHandler(e.target.value)}
           />
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 ">

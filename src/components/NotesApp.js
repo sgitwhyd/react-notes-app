@@ -9,7 +9,8 @@ export default class NotesApp extends Component {
 
     this.state = {
       notes: getInitialData(),
-      currentNotes: getInitialData(),
+      searchNotes: getInitialData(),
+      searchQuery: "",
     };
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
@@ -61,40 +62,23 @@ export default class NotesApp extends Component {
       archived: false,
     };
     this.setState((prevState) => {
-      const newNotes = [...prevState.notes, newNote];
       return {
-        notes: newNotes,
-        currentNotes: newNotes,
+        notes: [...prevState.notes, newNote],
+        searchNotes: [...prevState.notes, newNote],
+        searchQuery: "",
       };
     });
   }
 
-  onSearchEventHandler(searchValue) {
-    if (searchValue !== "") {
-      const searchNote = this.state.notes.filter((note) => {
-        return note.title.toLowerCase().includes(searchValue.toLowerCase());
-      });
-
-      this.setState(() => {
-        return {
-          notes: searchNote,
-        };
-      });
-    } else {
-      if (this.state.notes.length === 0) {
-        this.setState(() => {
-          return {
-            notes: [],
-          };
-        });
-      } else {
-        this.setState(() => {
-          return {
-            notes: this.state.currentNotes,
-          };
-        });
-      }
-    }
+  onSearchEventHandler(event) {
+    this.setState({ searchQuery: event });
+    this.setState((prevState) => {
+      return {
+        searchNotes: prevState.notes.filter((note) =>
+          note.title.toLowerCase().match(event)
+        ),
+      };
+    });
   }
 
   render() {
@@ -102,10 +86,11 @@ export default class NotesApp extends Component {
       <div className="container mx-auto  w-10/12 py-14">
         <NoteInput onAddNote={this.onAddNoteHandler} />
         <NotesList
-          notes={this.state.notes}
+          notes={this.state.searchNotes}
           onDelete={this.onDeleteHandler}
           onSwitchToArchive={this.onAddToArchiveHandler}
           onSwitchToActiveNote={this.onAddToActiveNoteHandler}
+          searchQuery={this.state.searchQuery}
           onSearchEventHandler={this.onSearchEventHandler}
         />
       </div>
