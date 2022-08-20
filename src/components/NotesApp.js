@@ -21,39 +21,39 @@ export default class NotesApp extends Component {
   }
 
   onDeleteHandler(id) {
-    const notes = this.state.searchNotes.filter((note) => note.id !== id);
+    const notes = this.state.notes.filter((note) => note.id !== id);
+    const searchNotes = this.state.searchNotes.filter((note) => note.id !== id);
     this.setState(() => {
       return {
-        notes: notes,
-        searchNotes: notes,
+        notes,
+        searchNotes,
       };
     });
   }
 
   onAddToArchiveHandler(id) {
-    const filteredNotes = this.state.searchNotes.map((note) => {
-      if (note.id === id) {
-        note.archived ? (note.archived = false) : (note.archived = true);
-      }
-      return note;
-    });
-
-    this.setState({
-      notes: filteredNotes,
-      searchNotes: filteredNotes,
+    this.setState((prevState) => {
+      return {
+        notes: prevState.notes.map((note) =>
+          note.id === id ? { ...note, archived: !note.archived } : note
+        ),
+        searchNotes: prevState.searchNotes.map((note) =>
+          note.id === id ? { ...note, archived: !note.archived } : note
+        ),
+      };
     });
   }
 
   onAddToActiveNoteHandler(id) {
-    const filteredNotes = this.state.notes.map((note) => {
-      if (note.id === id) {
-        !note.archived ? (note.archived = true) : (note.archived = false);
-      }
-      return note;
-    });
-
-    this.setState({
-      filteredNotes,
+    this.setState((prevState) => {
+      return {
+        notes: prevState.notes.map((note) =>
+          note.id === id ? { ...note, archived: !note.archived } : note
+        ),
+        searchNotes: prevState.searchNotes.map((note) =>
+          note.id === id ? { ...note, archived: !note.archived } : note
+        ),
+      };
     });
   }
 

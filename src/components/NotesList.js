@@ -19,7 +19,7 @@ const Notes = ({
           <input
             type="search"
             className="w-full rounded  border border-primary bg-transparent px-2 py-2 text-sm placeholder:text-sm placeholder:font-bold focus:outline-none md:w-4/12 lg:w-3/12 "
-            placeholder="Search Note..."
+            placeholder="Cari Note..."
             value={searchQuery}
             onChange={(e) => onSearchEventHandler(e.target.value)}
           />

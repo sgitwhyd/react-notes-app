@@ -11,7 +11,7 @@ const NoteInput = ({ onAddNote }) => {
     setMaxCharTitle(Math.max(0, 50 - e.target.value.length));
     setNote({
       ...note,
-      title: e.target.value.slice(0, maxCharTitle),
+      title: e.target.value.slice(0, 50),
     });
   };
 
@@ -45,8 +45,8 @@ const NoteInput = ({ onAddNote }) => {
             type="text"
             className="mt-2 w-full rounded border border-primary bg-transparent px-2 py-3 text-sm placeholder:text-sm placeholder:font-bold focus:outline-none"
             placeholder="Ini adalah Judul..."
-            onChange={onTitleChangeEventHandler}
             value={note.title}
+            onChange={onTitleChangeEventHandler}
             required
           />
           <textarea

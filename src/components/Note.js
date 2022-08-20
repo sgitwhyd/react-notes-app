@@ -15,7 +15,7 @@ const Note = ({
     <>
       <div className="border-1 relative flex max-h-fit w-full flex-col rounded-md border border-border-color">
         <div className="mb-10 flex-1 p-4">
-          <div className="text-xl">{title}</div>
+          <div className="overflow-x-hidden text-ellipsis text-xl">{title}</div>
           <p className="my-3 text-xs">{showFormattedDate(date)}</p>
           <p className="text-sm">{body}</p>
         </div>
