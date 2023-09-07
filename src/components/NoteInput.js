@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const NoteInput = ({ onAddNote }) => {
   const [maxCharTitle, setMaxCharTitle] = useState(50);
@@ -60,7 +61,7 @@ const NoteInput = ({ onAddNote }) => {
           ></textarea>
           <button
             type="submit"
-            className="w-full rounded bg-primary p-3 text-base font-bold"
+            className="w-full rounded bg-primary p-3 text-base font-bold text-white"
           >
             Buat
           </button>
@@ -71,3 +72,7 @@ const NoteInput = ({ onAddNote }) => {
 };
 
 export default NoteInput;
+
+NoteInput.propTypes = {
+  onAddNote: PropTypes.func,
+};
