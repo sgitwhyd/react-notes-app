@@ -1,4 +1,4 @@
-const getInitialData = () => [
+let notes = [
   {
     id: 1,
     title: "Babel",
@@ -53,4 +53,73 @@ const showFormattedDate = (date) => {
   return new Date(date).toLocaleDateString("id-ID", options);
 };
 
-export { getInitialData, showFormattedDate };
+export { showFormattedDate };
+
+export const getArchivedNotes = () => {
+  const archivedNotes = notes.filter((note) => note.archived);
+  return archivedNotes;
+};
+
+export const getAllNotes = () => notes;
+
+export const deleteNoteHandler = (id) => {
+  notes = notes.filter((note) => note.id !== id);
+};
+
+export const getActiveNotes = () => {
+  const activeNotes = notes.filter((note) => !note.archived);
+  return activeNotes;
+};
+
+export const handleSwitchToArchieve = (id) => {
+  notes = notes.map((note) => {
+    if (note.id === id) {
+      return {
+        ...note,
+        archived: !note.archived,
+      };
+    }
+
+    return note;
+  });
+};
+
+export const handleSwitchToActive = (id) => {
+  notes = notes.map((note) => {
+    if (note.id === id) {
+      return {
+        ...note,
+        archived: !note.archived,
+      };
+    }
+    return note;
+  });
+};
+
+export const handleAddNote = ({ title, body }) => {
+  const newNote = {
+    id: +new Date(),
+    createdAt: new Date().toISOString(),
+    title,
+    body,
+    archived: false,
+  };
+  notes = [...notes, newNote];
+};
+
+export const handleSearchNotes = (notesData, searchParam) => {
+  const filteredNotes = notesData.filter((note) =>
+    note.title
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .includes(searchParam.toLowerCase().replace(/\s+/g, ""))
+  );
+
+  return {
+    filteredNotes,
+  };
+};
+
+export const getNote = (id) => {
+  return notes.find((note) => note.id === id);
+};
